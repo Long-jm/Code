@@ -1,3 +1,3 @@
-# C++ Repo
+# Personal C++ Repo
 
-Mainly from NCSU ECE 309
+NCSU ECE309 OOP C++ class mainly homeworks, exercises, and labs.
