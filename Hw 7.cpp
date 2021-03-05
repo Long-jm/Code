@@ -2,10 +2,7 @@
 #include <list>
 #include <set>
 
-#define Q   (4) 
-
 using namespace std;
-
 class Squared 
 {
 public: 
@@ -19,12 +16,8 @@ protected:
    list<int> *newTable;
    
    size_t size;
-   #if Q == 3
    size_t hash(int key, int sz) { std::hash<int> h; return h(key) % sz; }
-   #endif
-   #if Q == 4
-   size_t hash(int key, int sz) { std::hash<int> h; return h(key ^ 677) % sz;
-   #endif
+   //size_t hash(int key, int sz) { std::hash<int> h; return h(key ^ 677) % sz;
    
    HashTable(const HashTable &other) = delete;
    HashTable& operator=(const HashTable &other) = delete;
@@ -54,15 +47,11 @@ protected:
 
 int main() 
 {
-   
-   #if Q == 1
    int val = 4;
    Squared sObj;
    cout << "val = " << val << " val^2 = " << sObj(val) << endl;
    return 0; 
-   #endif
 
-   #if Q == 2
    int searchVal = 5;
    set<int> Set;
    list<int> List;
@@ -94,9 +83,6 @@ int main()
       cout << n << ", ";
    }
    cout << "}; Found searchVal = (bool) " << lFound << endl;
-   #endif
-   
-   #if Q == 3
 
    HashTable HT;
    HT.insert(23);
@@ -107,5 +93,4 @@ int main()
    HT.insert(110);
    HT.insert(8);
    
-   #endif
 }
