@@ -1,3 +1,3 @@
-# My GitHub Project
+# Personal C++ Repo
 
-This is my GitHub project. I published it directly from Visual Studio Code.
+NCSU ECE309 OOP C++ class mainly homeworks, exercises, and labs.
