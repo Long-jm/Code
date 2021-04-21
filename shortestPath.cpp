@@ -76,9 +76,10 @@ bool shortest_path(DirectedGraph &graph, int from, int to, list<int> &path)
    unordered_map<int, VertexInfo> dots;
    priority_queue <int, vector<int>, greater<int> > minUnvisited;
 
-   if (graph.numNodes)
-      path.push_back(from);
-   else return false;
+   if (!graph.numNodes)
+   return false;
+   if (from == to)
+   return false;
 
    for(int i=0; i<graph.numNodes; i++) {
      struct VertexInfo v;
@@ -100,10 +101,12 @@ bool shortest_path(DirectedGraph &graph, int from, int to, list<int> &path)
       }
    }
    int temp = to;
+   path.push_back(temp);
    while (dots[temp].predV) {
       path.push_front(dots[temp].predV);
       temp = dots[temp].predV;
    }
+   path.push_front(from);
    if (!path.empty())
       return true;
    else return false;
