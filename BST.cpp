@@ -1,16 +1,22 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <random>
 
 using namespace std;
 
+#define VAL 0
 class BTNode {
 public:
-   int item;
+   //int item;
+   int data;
    BTNode *left;
    BTNode *right;
-   BTNode(int i, BTNode *l=nullptr, BTNode *r=nullptr):item(i),left(l),right(r){}
+   BTNode(/*int i,*/ int d, BTNode *l=nullptr, BTNode *r=nullptr):
+      /*item(i),*/data(d),left(l),right(r){}
 };
 
+#if VAL==1
 BTNode *root = nullptr;
 vector<int> BTList;
 
@@ -83,7 +89,57 @@ std::vector<int> inorder_traversal(BTNode *node) {
    inorder_traversal(node->right);
    return BTList;
 }
+#endif
 
+// Bad implementation. Add member variable "height" and store for each node instead of 
+// re-calculating every balance-factor call
+int nodeHeight(BTNode* node)
+{
+if (node->left==nullptr && node->right==nullptr) 
+  return 0;
+else if (node->left && node->right==nullptr) 
+   return nodeHeight(node->left)+1;
+else if (node->right && node->left==nullptr) 
+  return nodeHeight(node->right)+1;
+else return std::max(nodeHeight(node->left),nodeHeight(node->right))+1;
+}
+
+int balance_factor(BTNode *subtree)
+{
+  int leftHeight, rightHeight;
+  if(!subtree)
+    return 0;
+  if (subtree->left) 
+     leftHeight = nodeHeight(subtree->left);
+  else leftHeight = -1;
+  if (subtree->right) 
+     rightHeight = nodeHeight(subtree->right);
+  else rightHeight = -1;
+  return leftHeight - rightHeight;
+}
+// DO NOT MODIFY ANY OF THE FUNCTIONS BELOW. THEY ARE USED FOR TESTING
+void print_result(int bf)
+{
+  std::cout << "Tree has balance factor = " << bf << "." << std::endl;      
+}
+
+void print_feedback(int bf, std::ofstream &feedback)
+{
+  feedback << "Tree has balance factor = " << bf << "." << std::endl;      
+}
+
+
+int main()
+{
+   BTNode *root = new BTNode(100, 
+    new BTNode(25, new BTNode(0, nullptr, new BTNode(16))), 
+    new BTNode(125,nullptr,new BTNode(2132)));
+  int ret = balance_factor(root);
+  print_result(ret);
+  return 0;
+}
+
+#if VAL==1
 int main()
 {
    /*root = new BTNode(10, new BTNode(0), new BTNode(100));
@@ -174,3 +230,4 @@ int main()
    
    return 0;
 }
+#endif
